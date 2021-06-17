@@ -174,6 +174,10 @@ h2 {
             border-radius: 45px;
             cursor: pointer;
 
+            @include rwd(400px){
+                font-size: 14px;
+            };
+
             &.selected {
                 border: 1px solid $cBlue;
                 background: $cBlue;

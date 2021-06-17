@@ -123,11 +123,11 @@ export default {
 <style lang="scss">
 @import "@css/mixins";
 .main-content {
-    padding: 10vh 3%;
+    padding: 8vh 3%;
     min-height: 100vh;
-    @include rwd(400px) {
-        padding: 15vh 3%;
-    }
+    @include rwd(400px){
+        padding: 12vh 3%;
+    };
 }
 
 .fade-enter-active,

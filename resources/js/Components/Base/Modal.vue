@@ -31,14 +31,19 @@ export default {
 };
 </script>
 <style lang="scss">
-@import './resources/css/variables';
+@import '@css/variables';
+@import '@css/mixins';
 
 .popup {
-    position: fixed;
+    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 90vh;
     background-color: rgba(0, 0, 0, 0.8);
-    top: 0;
+    top: 8vh;
+    @include rwd(400px) {
+        top: 12vh;
+        height: 80vh;
+    }
     left: 0;
     z-index: 9999;
     display: flex;
@@ -48,17 +53,28 @@ export default {
 
     .popupContainer {
         width: 300px;
+        max-height: 60vh;
         background-color: $cWhite;
         padding: 20px;
         border-radius: 20px;
+        overflow: scroll;
 
         &.mid {
             width: 540px;
+            @include rwd(540px) {
+                width: 90%;
+            }
         }
 
         &.wide {
             width: 900px;
         }
+
+        @include rwd(600px) {
+            width: 90%;
+            max-height: 70vh;
+        }
+
 
         .modal-header {
             font-size: 0.9em;
