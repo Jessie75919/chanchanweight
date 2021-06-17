@@ -3,57 +3,41 @@
         <section class="calendar-container">
             <v-calendar is-expanded
                         @update:to-page="onChangeMonth"
+                        @dayclick="onDayClick"
                         :max-date="new Date()"
                         :attributes="attributes">
-                <template v-slot:day-popover="{day, attributes, dayTitle}">
-                    <div class="w-popover-container">
-                        <div class="popoverTitle">{{ dayTitle }}</div>
-                        <ul v-for="{key, customData} in attributes" :key="key">
-                            <li>
-                                <div class="list-item">
-                                    <span>體重：</span>
-                                    <input type="number" v-if="customData.isOpen"
-                                           v-model.number="customData.weight">
-                                    <span v-else>{{ customData.weight }} kg</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-item">
-                                    <span>體脂：</span>
-                                    <input type="number" v-if="customData.isOpen"
-                                           v-model.number="customData.fat">
-                                    <span v-else>{{ customData.fat }} %</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-item">
-                                    <span>體溫：</span>
-                                    <input type="number" v-if="customData.isOpen"
-                                           v-model.number="customData.temperature">
-                                    <span v-else>{{ customData.temperature }} ℃</span>
-                                </div>
-                            </li>
-                            <li class="buttons">
-                                <div v-if="customData.isOpen"
-                                     class="active"
-                                     @click="updateAmount(customData, 'weight')">
-                                    確認修改
-                                </div>
-                                <div v-else
-                                     @click="enableInput(customData, 'weight')">
-                                    數值修改
-                                </div>
-                            </li>
-                            <li class="body-status-btn">
-                                <div>
-                                    <button @click="showBodyStatus(customData)">身體狀況</button>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </template>
             </v-calendar>
         </section>
+        <div class="data-container" v-if="editingData">
+            <div class="data-header">
+                {{ selectedDate.display }}
+                <i class="icon-cancel" @click="resetData"></i>
+            </div>
+            <div class="data-body">
+                <div class="metrics">
+                    <div class="metric-values">
+                        <div class="title">體重</div>
+                        <div class="value" v-if="! isEditData">{{ editingData.weight }} kg</div>
+                        <input type="number" v-else v-model="editingData.weight">
+                    </div>
+                    <div class="metric-values">
+                        <div class="title">體脂</div>
+                        <div class="value" v-if="! isEditData">{{ editingData.fat }} %</div>
+                        <input type="number" v-else v-model="editingData.fat">
+                    </div>
+                    <div class="metric-values">
+                        <div class="title">體溫</div>
+                        <div class="value" v-if="! isEditData">{{ editingData.temperature }} ℃</div>
+                        <input type="number" v-else v-model="editingData.temperature">
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="edit" @click="editData" v-if="! isEditData">修改數值</button>
+                    <button class="confirm" @click="confirmEdit" v-else>確定修改</button>
+                    <button class="body-status" @click="showBodyStatus">身體狀態</button>
+                </div>
+            </div>
+        </div>
     </div>
     <transition name="fade">
         <BodyStatusInput v-if="isOpenBodyStatus" :date="selectedDate" @close="closeBodyStatusInput"/>
@@ -65,25 +49,56 @@ import { weightStatesByMonth } from '@/APIs/WeightState';
 import BodyStatusInput from '@/Components/Popups/BodyStatusInput';
 import { submit } from '@/Components/Popups/shares/shares';
 import Layout from '@/Layouts/Layout';
+import { inject } from 'vue';
 
 export default {
     name: 'Calendar',
     layout: Layout,
     components: { BodyStatusInput },
+    setup(){
+        const dayjs = inject('dayjs');
+        return {dayjs};
+    },
     data() {
         return {
             weightStates: [],
             selectedDate: null,
             isOpenBodyStatus: false,
+            isEditData: false,
+            editingData: null,
         };
     },
     methods: {
+        resetData(){
+            this.editingData = null;
+            this.selectedDate = null;
+        },
+        onDayClick(e) {
+            if (!e.attributes[0]) {
+                this.resetData();
+                return;
+            }
+            this.editingData = e.attributes[0].customData;
+            const { date } = this.editingData;
+            this.selectedDate = { date, display: this.dayjs(date).format('YYYY 年 MM 月 DD 日') };
+        },
+        editData() {
+            if (!this.editingData) {
+                return;
+            }
+            this.isEditData = true;
+        },
+        confirmEdit() {
+            this.isEditData = false;
+            submit(this.editingData, this.selectedDate.date);
+        },
         closeBodyStatusInput() {
             this.isOpenBodyStatus = false;
-            this.selectedDate = null;
+            this.resetData();
         },
         onChangeMonth(e) {
             const { year, month } = e;
+            this.resetData();
             this.getWeightStatesByMonth(year, month);
         },
         getWeightStatesByMonth(year, month) {
@@ -93,17 +108,7 @@ export default {
             return weightStatesByMonth({ year, month })
                 .then(({ data }) => this.weightStates = data);
         },
-        updateAmount(ws) {
-            ws.isOpen = false;
-            const { date } = ws;
-            submit(ws, date);
-        },
-        enableInput(ws) {
-            ws.isOpen = true;
-        },
-        showBodyStatus(ws) {
-            const { date } = ws;
-            this.selectedDate = { date, display: date };
+        showBodyStatus() {
             this.isOpenBodyStatus = true;
         },
     },
@@ -113,12 +118,19 @@ export default {
         },
         attributes() {
             return [
+                {
+                    key: 'today',
+                    highlight: {
+                        color: 'red',
+                    },
+                    dates: new Date(),
+                },
                 ...this.weightStates.map(ws => {
-                    ws.isOpen = false;
+                    ws.isSelected = false;
                     return {
                         dates: ws.date,
+                        highlight: ws.isSelected,
                         dot: { style: { backgroundColor: '#E3964B' } },
-                        popover: true,
                         customData: ws,
                     };
                 }),
@@ -134,19 +146,129 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@css/variables";
+@import "@css/mixins";
+
 .calendar-main {
     padding-top: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include rwd(600px) {
+        padding-top: 5vh;
+    }
+    @include rwd(450px) {
+        padding-top: 2vh;
+    }
 
-    .calendar-container {
-        width: 600px;
+    .calendar-container, .data-container {
+        margin: 0 auto;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .data-container {
+        margin-top: 20px;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+
+        .data-header {
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+            i {
+                position: absolute;
+                cursor: pointer;
+                top: -5px;
+                right: -5px;
+                font-size: 13px;
+            }
+        }
+
+        .data-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @include rwd(600px) {
+                flex-direction: column;
+            }
+        }
+
+
+        .metrics {
+            width: 60%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 5px;
+
+            @include rwd(600px) {
+                width: 90%;
+                margin-bottom: 10px;
+            }
+
+            @include rwd(450px) {
+                flex-direction: column;
+            }
+
+            .metric-values {
+                @include rwd(450px) {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                }
+
+                input {
+                    width: 75%;
+                    height: 25px;
+                    color: #999;
+                }
+
+                .title {
+                    font-size: 18px;
+                }
+
+                .value {
+                    font-size: 16px;
+                    color: #999;
+                }
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 40%;
+            @include rwd(600px) {
+                width: 100%;
+            }
+
+            button {
+                width: 50%;
+                margin: 0 5px;
+                border: none;
+                padding: 5px;
+                border-radius: 50px;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            .edit {
+                background: $cOrange;
+            }
+
+            .confirm {
+                background: $cGreen;
+            }
+
+            .body-status {
+                background: $cBlue;
+            }
+        }
     }
 }
 </style>
 <style lang="scss">
-@import "@css/variables";
 
 .vc-container {
     border: none;
@@ -157,88 +279,8 @@ export default {
     }
 
     .vc-day {
-        min-height: 70px;
+        min-height: 40px;
     }
 }
-
-.w-popover-container {
-    min-width: 100px;
-
-    .popoverTitle {
-        text-align: center;
-    }
-
-    li {
-        list-style: none;
-        padding: 0;
-
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        &:before {
-            content: "";
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: $cOrange;
-            left: -13px;
-            top: 11px;
-            border-radius: 50%;
-        }
-
-        &.buttons {
-            text-align: center;
-
-            div {
-                width: 100%;
-                margin: 5px auto;
-                border-radius: 5px;
-                background: $cOrange;
-                text-align: center;
-                cursor: pointer;
-
-                i {
-                    font-weight: bold;
-                    color: white;
-                    font-size: 14px;
-                }
-
-                &.active {
-                    background: $cGreen;
-                }
-            }
-
-            &:before {
-                background: none;
-            }
-        }
-
-        &.body-status-btn {
-            button {
-                width: 100%;
-                background: $cBlue;
-                color: white;
-                border: none;
-                padding: 5px;
-                border-radius: 5px;
-            }
-
-            &:before {
-                background: none;
-            }
-        }
-
-        input {
-            width: 50px;
-            border-radius: 15px;
-            height: 20px;
-            text-align: right;
-        }
-    }
-}
-
 
 </style>
