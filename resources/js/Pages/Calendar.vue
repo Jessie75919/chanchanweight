@@ -166,7 +166,7 @@ export default {
     }
 
     .data-container {
-        margin-top: 20px;
+        margin: 20px 0;
         background: white;
         border-radius: 10px;
         padding: 20px;
@@ -248,7 +248,7 @@ export default {
                 width: 50%;
                 margin: 0 5px;
                 border: none;
-                padding: 5px;
+                padding: 10px;
                 border-radius: 50px;
                 color: #fff;
                 cursor: pointer;
