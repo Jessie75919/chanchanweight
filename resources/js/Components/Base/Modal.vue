@@ -45,7 +45,7 @@ export default {
         height: 80vh;
     }
     left: 0;
-    z-index: 9999;
+    z-index: 9998;
     display: flex;
     justify-content: center;
     align-content: center;
