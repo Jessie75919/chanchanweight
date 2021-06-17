@@ -3,16 +3,11 @@
     <head>
         @include('meta-data.global-meta-data')
 
-        <link rel="image_src" href="images/thumbnail.jpg">
-        <link rel="shortcut icon" href="images/favicon.ico">
-        <link rel="alternate" href="https://www.weight.chanchancreative.com/" hreflang="zh-Hant">
-        <link rel="canonical" href="https://www.weight.chanchancreative.com/">
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-        <link href="https://file.myfontastic.com/J27BndVsuo3sLQMjh5n9WX/icons.css" rel="stylesheet">
-
+        <link rel="image_src" href="https://chanchandev.s3.ap-northeast-2.amazonaws.com/imgs/chan-chan-dev-logo.png">
+        <link rel="shortcut icon" href="https://chanchandev.s3.ap-northeast-2.amazonaws.com/imgs/favicon.ico">
+        <link rel="alternate" href="https://weight.chanchandev.com/">
+        <link rel="canonical" href="https://weight.chanchandev.com/">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
