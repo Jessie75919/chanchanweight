@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@import 'globe.scss';
+.indexRecord {
+    position: absolute;
+    width: 500px;
+    height: 340px;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -170px;
+    @include rwd(600px) {
+        width: 94%;
+        margin-left: -47%;
+    }
+    .todayBtn {
+        width: 100px;
+        margin: auto;
+        padding-bottom: 20px;
+        a {
+            display: block;
+            background-color: $cOrange;
+            color: $cWhite;
+            text-align: center;
+            border-radius: 50px;
+            &:hover {
+                background-color: $cBlue;
+            }
+        }
+    }
+    .timePicker {
+        width: 250px;
+        margin: auto;
+        time {
+            text-align: center;
+            font-size: 1em;
+        }
+    }
+    .recordArea {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        padding-top: 50px;
+        .recordList {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: $cWhite;
+            text-align: center;
+            box-shadow: $cShadow 1px 1px;
+            cursor: pointer;
+            transition: ease 0.1s;
+            &:hover {
+                transform: scale(0.95);
+            }
+            figure {
+                width: 70px;
+                margin: auto;
+                padding-top: 25px;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            h2,
+            h3 {
+                font-size: 1em;
+            }
+            @include rwd(500px) {
+                width: 130px;
+                height: 130px;
+                figure {
+                    width: 60px;
+                    padding-top: 20px;
+                }
+                h2,
+                h3 {
+                    font-size: 1em;
+                }
+            }
+            @include rwd(430px) {
+                width: 120px;
+                height: 120px;
+                figure {
+                    width: 50px;
+                    padding-top: 17px;
+                }
+            }
+            @include rwd(400px) {
+                width: 90px;
+                height: 90px;
+                figure {
+                    width: 40px;
+                    padding-top: 10px;
+                }
+                h2,
+                h3 {
+                    font-size: 0.8em;
+                    padding-top: 5px;
+                }
+            }
+        }
+    }
+}

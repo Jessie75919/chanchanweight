@@ -1,0 +1,27 @@
+
+.enterData {
+    padding-top: 20px;
+
+    .dataTitle {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dataInfo {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+            width: calc(100% - 30px);
+            padding-left: 30px;
+            text-align: center;
+        }
+
+        span {
+            width: 20px;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import "@css/variables";
+.error-message {
+    font-size: 14px;
+    color: $cOrange;
+    padding-left: 5px;
+}
+
+.user-input-container {
+    input[type=button] {
+        width: 100%;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .input-wrapper {
+        padding-bottom: 10px;
+
+        .user-input {
+            position: relative;
+
+
+
+            input {
+                background: $cGrayf5;
+                border-radius: 50px;
+                border-bottom: none;
+                padding-left: 40px;
+
+                &::placeholder {
+                    color: $cGrayccc;
+                }
+            }
+
+            i {
+                color: $cOrange;
+                z-index: 100;
+                position: absolute;
+                top: 12px;
+                left: 10px;
+            }
+        }
+    }
+}

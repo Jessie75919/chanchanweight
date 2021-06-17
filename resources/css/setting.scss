@@ -1,0 +1,257 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700');
+@import url('http://fonts.googleapis.com/earlyaccess/cwtexyen.css');
+@import "variables";
+@import "mixins";
+
+/*----------基本設定----------*/
+
+* {
+    position: relative;
+    box-sizing: border-box;
+    /*&:after {
+        content: '';
+        clear: both;
+        display: block;
+    }*/
+}
+
+html {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Poppins, Arial, "GenJyuuGothicX-Medium", "cwTeXYen", "微軟正黑體", "Microsoft JhengHei", "新細明體";
+    background: $cGrayf5;
+    font-size: 18px;
+    line-height: 1.6em;
+    color: $cGray45;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+
+    outline: none;
+
+}
+
+a {
+    color: $cBlue;
+    text-decoration: none;
+    transition: ease 0.3s;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: $cOrange;
+}
+
+::selection {
+    background-color: $cOrange;
+    color: $cWhite;
+}
+
+::-moz-selection {
+    background-color: $cOrange;
+    color: $cWhite;
+}
+
+:focus {
+    outline: none;
+}
+
+img {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.4em;
+    line-height: 26px;
+    padding: 10px 0px 5px 0px;
+}
+
+h2 {
+    font-size: 1.3em;
+    line-height: 24px;
+    padding: 10px 0px 5px 0px;
+}
+
+h3 {
+    font-size: 1.2em;
+    padding: 10px 0px 5px 0px;
+}
+
+h4 {
+    font-size: 1em;
+    padding: 10px 0px 5px 0px;
+}
+
+p {
+    padding: 5px 0px;
+}
+
+time {
+    display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &.nowrap {
+        white-space: nowrap;
+    }
+
+    thead {
+        background-color: $cOrange;
+
+        tr,
+        th,
+        td {
+            color: $cWhite;
+            font-weight: bold;
+        }
+    }
+
+    tbody tr {
+        transition: ease 0.3s;
+
+        &:nth-child(odd) {
+            background-color: $cGrayf5;
+        }
+
+        &:hover {
+            background-color: $cGrayeee;
+        }
+    }
+
+    tr,
+    th,
+    td {
+        padding: 6px 10px;
+        text-align: left;
+        border-bottom: $cGrayeee solid 1px;
+
+        .alignCenter {
+            text-align: center;
+        }
+
+        .alignRight {
+            text-align: right;
+        }
+    }
+}
+
+ul {
+    margin-left: 20px;
+    padding-top: 10px;
+
+    li {
+        list-style: disc;
+        padding: 0px 0px 8px 0px;
+        margin: 0;
+    }
+}
+
+ol {
+    margin-left: 20px;
+    padding-top: 10px;
+    display: block;
+
+    li {
+        display: block;
+        list-style: decimal;
+        padding: 0px 0px 8px 0px;
+        margin: 0;
+    }
+}
+
+i {
+    padding: 0 5px;
+    vertical-align: middle;
+}
+
+sub,
+sup {
+    font-size: 0.7em;
+}
+
+
+/*----------表單設定----------*/
+
+input,
+textarea,
+select {
+    font-family: Poppins, Arial, "GenJyuuGothicX-Medium", "cwTeXYen", "微軟正黑體", "Microsoft JhengHei", "新細明體";
+    border: none;
+    border-bottom: $cGrayccc solid 1px;
+    background: $cWhite;
+    padding: 10px 0;
+    font-size: 1em;
+    color: $cGray45;
+    box-sizing: border-box;
+    border-radius: 0px;
+    transition: linear 0.3s;
+    outline: none;
+    width: 100%;
+    margin: 0;
+
+    &:hover,
+    &:focus {
+        border-bottom: $cOrange solid 1px;
+    }
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    border: none;
+    background: $cOrange;
+    color: $cWhite;
+    width: 120px;
+    margin: 5px 2px;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &:hover {
+        background-color: $cBlue;
+    }
+
+    &:disabled {
+        background-color: $cGrayeee;
+    }
+}
+
+textarea {
+    margin: 0 0 3px 0;
+    line-height: 20px;
+    display: block;
+}
+
+select {
+    width: 100%;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    position: relative;
+    margin-right: 10px;
+    transform: scale(1.3, 1.3);
+}

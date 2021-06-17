@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "ccweight";
+  src:url("fonts/ccweight.eot");
+  src:url("fonts/ccweight.eot?#iefix") format("embedded-opentype"),
+    url("fonts/ccweight.woff") format("woff"),
+    url("fonts/ccweight.ttf") format("truetype"),
+    url("fonts/ccweight.svg#ccweight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "ccweight" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "ccweight" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-key:before {
+  content: "\61";
+}
+.icon-birthday:before {
+  content: "\62";
+}
+.icon-sad:before {
+  content: "\63";
+}
+.icon-user:before {
+  content: "\64";
+}
+.icon-presentation:before {
+  content: "\65";
+}
+.icon-cancel:before {
+  content: "\66";
+}
+.icon-heart:before {
+  content: "\67";
+}
+.icon-logout:before {
+  content: "\68";
+}
+.icon-login:before {
+  content: "\69";
+}
+.icon-rightarrow:before {
+  content: "\6a";
+}
+.icon-leftarrow:before {
+  content: "\6b";
+}
+.icon-home:before {
+  content: "\6c";
+}
+.icon-email:before {
+  content: "\6d";
+}
+.icon-calendar:before {
+  content: "\6e";
+}
+.icon-lock:before {
+  content: "\6f";
+}

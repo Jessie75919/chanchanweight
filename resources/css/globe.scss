@@ -1,0 +1,107 @@
+@charset "UTF-8";
+@import 'reset';
+@import 'ccweight/styles';
+@import 'setting.scss';
+
+/*-----------loading----------*/
+
+#loading {
+    background-color: $cWhite;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999999;
+    margin: 0px;
+    padding: 0;
+    top: 0px;
+    #loading-center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100px;
+        width: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+        text-align: center;
+        img {
+            display: block;
+            width: 100px;
+            height: auto;
+            margin: auto;
+        }
+    }
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 20px 3%;
+    background-color: $cWhite;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    z-index: 9999;
+    figure {
+        width: 60px;
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+    h1 {
+        font-size: 1.25em;
+        padding-left: 10px;
+        display: block;
+    }
+}
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 13px 3%;
+    height: auto;
+    background-color: $cWhite;
+    z-index: 9999;
+    .menu {
+        max-width: 300px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        .menuList {
+            text-align: center;
+            padding: 0 10px;
+            a {
+                display: block;
+                color: $cGray45;
+                i {
+                    display: block;
+                    font-size: 1.2em;
+                }
+                &:hover {
+                    color: $cBlue;
+                }
+            }
+        }
+    }
+}
+main {
+
+}
+footer {
+    text-align: center;
+    font-size: 0.7em;
+    color: $cGray999;
+    padding-top: 30px;
+    line-height: 1.3em;
+}
+
+.error-message {
+    font-size: 14px;
+    color: $cOrange;
+    padding-left: 5px;
+}
