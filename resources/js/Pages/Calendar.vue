@@ -122,6 +122,7 @@ export default {
                     key: 'today',
                     highlight: {
                         color: 'red',
+                        fillMode: 'solid',
                     },
                     dates: new Date(),
                 },
