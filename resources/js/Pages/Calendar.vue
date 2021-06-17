@@ -166,7 +166,7 @@ export default {
     }
 
     .data-container {
-        margin: 20px 0;
+        margin: 0 auto 30px;
         background: white;
         border-radius: 10px;
         padding: 20px;
