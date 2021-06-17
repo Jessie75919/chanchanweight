@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Weight\Auth;
 use App\Http\Controllers\API\ApiController;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
+use App\Providers\RouteServiceProvider;
 use App\Services\User\UserAuthService;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -60,7 +61,7 @@ class PasswordController extends ApiController
         );
 
         if ($status == Password::PASSWORD_RESET) {
-            return redirect()->route('login');
+            return redirect(RouteServiceProvider::HOME);
         }
 
         throw ValidationException::withMessages([
