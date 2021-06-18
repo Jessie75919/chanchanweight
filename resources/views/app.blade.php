@@ -7,6 +7,7 @@
         <link rel="shortcut icon" href="https://chanchandev.s3.ap-northeast-2.amazonaws.com/imgs/favicon.ico">
         <link rel="alternate" href="https://weight.chanchandev.com/">
         <link rel="canonical" href="https://weight.chanchandev.com/">
+        @include('meta-data.ga')
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
