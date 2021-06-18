@@ -72,6 +72,7 @@ export default {
         resetData(){
             this.editingData = null;
             this.selectedDate = null;
+            this.isEditData = false;
         },
         onDayClick(e) {
             if (!e.attributes[0]) {
@@ -220,7 +221,6 @@ export default {
 
                 input {
                     width: 75%;
-                    height: 25px;
                     color: #999;
                 }
 
